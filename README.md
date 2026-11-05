@@ -54,11 +54,14 @@ public/            index.html, client.js (netcode + rendering), sprites.js (pixe
 
 There is one dependency (`ws`) and no build step.
 
-## Deploy (Render, free)
+## Deploy (Render, free) and CI
+
+`.github/workflows/ci.yml` runs the tests on every push and pull request. On `main`, it then triggers a Render deploy, so a failing commit never goes live.
 
 1. Push this folder to a GitHub repo.
-2. On Render, choose **New → Web Service**, pick the repo, set Build `npm install` and Start `npm start`. Render provides `PORT`.
-3. The free tier sleeps when idle, so the first visit can take up to a minute to wake it.
+2. On Render, choose **New → Blueprint** and pick the repo. `render.yaml` sets everything up, and Render provides `PORT`.
+3. In the Render service, copy the deploy hook URL from **Settings → Deploy Hook**. Add it to the GitHub repo as the Actions secret `RENDER_DEPLOY_HOOK_URL`.
+4. The free tier sleeps when idle, so the first visit can take up to a minute to wake it.
 
 Rooms live in memory in one process. That's fine for a demo. Running more than one instance would need shared room state or sticky sessions.
 

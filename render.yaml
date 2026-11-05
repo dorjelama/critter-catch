@@ -1,0 +1,10 @@
+# Render Blueprint: New → Blueprint → pick this repo.
+services:
+  - type: web
+    name: critter-catch
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /
+    autoDeploy: false # deploys are triggered by .github/workflows/ci.yml after tests pass
